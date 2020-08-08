@@ -2,6 +2,8 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import AuthService from '../services/AuthService';
 import { AuthContext } from '../Context/AuthContext';
+import './scss/navbar.css'
+import HighlightIcon from "@material-ui/icons/Highlight";
 
 const Navbar = props =>{
     const {isAuthenticated,user,setIsAuthenticated,setUser} = useContext(AuthContext);
@@ -18,21 +20,21 @@ const Navbar = props =>{
     const unauthenticatedNavBar = ()=>{
         return (
             <>
-                <Link to="/">
-                    <li className="nav-item nav-link">
+             <li>
+                <Link to="/" className = 'link'>
                         Home
-                    </li>
                 </Link>  
-                <Link to="/login">
-                    <li className="nav-item nav-link">
+            </li>
+            <li>
+                <Link to="/login"  className = 'link'>
                         Login
-                    </li>
                 </Link>  
-                <Link to="/register">
-                    <li className="nav-item nav-link">
+            </li>
+            <li className = 'link'>
+                <Link to="/register" className = 'link'>
                         Register
-                    </li>
                 </Link>  
+            </li>
             </>
         )
     }
@@ -40,34 +42,34 @@ const Navbar = props =>{
     const authenticatedNavBar = ()=>{
         return(
             <>
-                <Link to="/">
-                    <li className="nav-item nav-link">
-                        Home
-                    </li>
-                </Link> 
-                <Link to="/todos">
-                    <li className="nav-item nav-link">
+                <li>
+                <Link className = 'link' to="/todos">
                         Todos
-                    </li>
                 </Link> 
+                </li>
                 {
                     user.role === "admin" ? 
-                    <Link to="/admin">
-                        <li className="nav-item nav-link">
+                    <li>
+                    <Link className = 'link' to="/admin">
                             Admin
-                        </li>
-                    </Link> : null
+                    </Link> 
+                    </li>: null
                 }  
-                <button type="button" 
-                        className="btn btn-link nav-item nav-link" 
-                        onClick={onClickLogoutHandler}>Logout</button>
+                <li style = {{float : "right"}}>
+                <a href = "#" 
+                        type="button logout" 
+                        style = {{float : "right"}}
+                        className="link" 
+                        onClick={onClickLogoutHandler}>Logout</a>
+                </li>
             </>
         )
     }
     return(
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+   
+        <nav style = {{backgroundColor : "#f5ba13"}} className="navbar navbar-expand-lg navbar-light">
             <Link to="/">
-                <div className="navbar-brand">NoobCoder</div>
+            <h1 style = {{color: "white"}}><HighlightIcon/>Keeper</h1>
             </Link>
             <div className="collapse navbar-collapse" id="navbarText">
                 <ul className="navbar-nav mr-auto">
@@ -75,6 +77,7 @@ const Navbar = props =>{
                 </ul>
             </div>
         </nav>
+
     )
 }
 

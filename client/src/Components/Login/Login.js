@@ -1,7 +1,9 @@
 import React, {useState,useContext} from 'react';
-import AuthService from '../services/AuthService';
-import Message from '../Components/Message';
-import {AuthContext} from '../Context/AuthContext';
+import AuthService from '../../services/AuthService';
+import Message from '../Message';
+import {AuthContext} from '../../Context/AuthContext';
+import HighlightIcon from "@material-ui/icons/Highlight";
+import './login.css'
 
 const Login = props=>{
     const [user,setUser] = useState({username: "", password : ""});
@@ -30,22 +32,26 @@ const Login = props=>{
 
 
     return(
-        <div>
-            <form onSubmit={onSubmit}>
+        <div className = 'text-center'>
+            <HighlightIcon />
+            <form onSubmit={onSubmit} className = 'form-signin'>
                 <h3>Please sign in</h3>
                 <label htmlFor="username" className="sr-only">Username: </label>
                 <input type="text" 
                        name="username" 
+                       style = {{borderRadius : "25px"}}
                        onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Enter Username"/>
+                       className="form-control m-2" 
+                       placeholder=" Enter Email"/>
                 <label htmlFor="password" className="sr-only">Password: </label>
                 <input type="password" 
                        name="password" 
+                       style = {{borderRadius : "25px"}}
                        onChange={onChange} 
-                       className="form-control" 
+                       className="form-control m-2" 
                        placeholder="Enter Password"/>
-                <button className="btn btn-lg btn-primary btn-block" 
+                <button className="btn btn-lg btn-primary btn-block m-2" 
+                        style = {{borderRadius : "25px"}}
                         type="submit">Log in </button>
             </form>
             {message ? <Message message={message}/> : null}

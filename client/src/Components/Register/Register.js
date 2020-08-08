@@ -1,6 +1,8 @@
 import React, {useState,useRef,useEffect} from 'react';
-import AuthService from '../services/AuthService';
-import Message from '../Components/Message';
+import AuthService from '../../services/AuthService';
+import Message from '../Message';
+import '../Login/login.css';
+import HighlightIcon from "@material-ui/icons/Highlight";
 
 const Register = props=>{
     const [user,setUser] = useState({username: "", password : "", role : ""});
@@ -38,31 +40,38 @@ const Register = props=>{
 
 
     return(
-        <div>
-            <form onSubmit={onSubmit}>
-                <h3>Please Register</h3>
+        <div className = 'text-center'>
+            <HighlightIcon />
+
+            <form onSubmit={onSubmit} className = 'form-signin'>
+                <h3 >Please Register</h3>
                 <label htmlFor="username" className="sr-only">Username: </label>
                 <input type="text" 
                        name="username" 
                        value={user.username}
                        onChange={onChange} 
-                       className="form-control" 
+                       style = {{borderRadius : "25px"}}
+                       className="form-control m-2" 
                        placeholder="Enter Username"/>
                 <label htmlFor="password" className="sr-only">Password: </label>
                 <input type="password" 
                        name="password"
                        value={user.password} 
+                       style = {{borderRadius : "25px"}}
                        onChange={onChange} 
-                       className="form-control" 
+                       className="form-control m-2" 
                        placeholder="Enter Password"/>
                 <label htmlFor="role" className="sr-only">Role: </label>
                 <input type="text" 
                        name="role"
-                       value={user.role}  
+                       value={user.role}
+                         
                        onChange={onChange} 
-                       className="form-control" 
+                       style = {{borderRadius : "25px"}}
+                       className="form-control m-2" 
                        placeholder="Enter role (admin/user)"/>
-                <button className="btn btn-lg btn-primary btn-block" 
+                <button className="btn btn-lg btn-primary btn-block m-2" 
+                         style = {{borderRadius : "25px"}}
                         type="submit">Register</button>
             </form>
             {message ? <Message message={message}/> : null}

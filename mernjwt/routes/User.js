@@ -64,6 +64,29 @@ userRouter.post('/todo',passport.authenticate('jwt',{session : false}),(req,res)
     })
 });
 
+userRouter.delete('/todos/:id',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    Todo.findByIdAndDelete(req.params.id).then(() => res.status(200).json({message : {msgBody : "Successfully created todo", msgError : false}})).catch(err => res.status(500).json({message : {msgBody : "Error has occured" + err, msgError: true}}));
+    const index = req.user.todos.indexOf(req.params.id);
+if (index > -1) {
+  array.splice(index, 1);
+}
+});
+
+userRouter.put('/todos/:id',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    const todo = req.body;
+    const id = req.params.id;
+    Todo.findByIdAndUpdate(id,{name:todo.name}, function(err, result){
+
+        if(err){
+            res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
+        }
+        else{
+            res.status(200).json({message : {msgBody : "Successfully updated todo", msgError : false}});
+        }
+
+    })
+});
+
 userRouter.get('/todos',passport.authenticate('jwt',{session : false}),(req,res)=>{
     User.findById({_id : req.user._id}).populate('todos').exec((err,document)=>{
         if(err)
@@ -73,6 +96,17 @@ userRouter.get('/todos',passport.authenticate('jwt',{session : false}),(req,res)
         }
     });
 });
+
+userRouter.get('/todos/:id',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    Todo.findById(req.params.id).then((document)=>{
+            res.status(200).json({document, authenticated : true});
+    })
+    .catch((err) =>{
+        res.status(500).json({message : {msgBody : "Error has occured" + err, msgError: true}});
+    });
+});
+
+
 
 
 userRouter.get('/admin',passport.authenticate('jwt',{session : false}),(req,res)=>{
